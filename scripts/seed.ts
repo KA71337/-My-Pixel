@@ -1,0 +1,6 @@
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+const catalog={version:1,products:[],categories:[],services:[{id:'own-service',name:'Öz servis xidmətimiz',nameRu:'Собственный сервис',description:'My Pixel-in öz servis xidməti mövcuddur. Avadanlığınız barədə məlumat və xidmət imkanlarını dəqiqləşdirmək üçün bizimlə əlaqə saxlayın.',descriptionRu:'У My Pixel есть собственный сервис. Свяжитесь с нами, чтобы уточнить возможности обслуживания вашего устройства.',image:'',published:true}],settings:{name:'My Pixel',slogan:'Satışda keyfiyyət, təmirdə zamanət!',since:2017,address:'Bakı ş., Nizami r., Kamil Balakişiyev küç. 59/1',phones:['(055) 205-06-60','(050) 444-06-60'],hours:'Hər gün 11:00–20:00',hoursRu:'Ежедневно 11:00–20:00',whatsapp:'',socials:[],latitude:40.410713,longitude:49.941349,logo:'',cover:''}};
+await fs.mkdir('data',{recursive:true});
+const target=path.resolve('data/catalog.json');
+try {await fs.writeFile(target,JSON.stringify(catalog,null,2)+'\n',{flag:'wx'});console.log('Created confirmed shop data, 0 products; no licensed images available.');}catch(e){if((e as NodeJS.ErrnoException).code!=='EEXIST')throw e;console.log('Seed exists; not overwritten.');}

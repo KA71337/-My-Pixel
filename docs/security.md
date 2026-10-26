@@ -1,0 +1,13 @@
+# Security model
+
+Opaque 256-bit random session cookie, HttpOnly, SameSite=Strict, Secure in production; 8-hour expiry. Server-side Redis session records are revocable, keyed with SESSION_SECRET. Logout deletes record before clearing cookie. All admin pages check the session on the server; all admin API reads require session, writes require session + exact Origin + session CSRF header. Login requires exact Origin; SameSite prevents cookie injection. No frontend-only auth.
+
+Production uses atomic Redis EVAL INCR+EXPIRE login counters: 10 attempts/IP and 100 global per 15 minutes (successful attempts count too). Only Vercel's trusted platform forwarded IP is used on Vercel; development uses a global local bucket. Other hosting must review trusted proxy settings. No password/session/token logging. Development memory sessions/counters deliberately cannot be used in production. TLS required.
+
+Schema validation is strict; bounded JSON streaming body, bounded image streams; regex paths avoid traversal. Uploads accept magic-byte JPEG/PNG/WebP only, decode with Sharp pixel limits, reject animation, rotate/resize/re-encode (strip EXIF), store immutable hashed paths. SVG/HTML/GIF/remote URLs are rejected. No remote fetch importer, so no SSRF. Images are not deleted physically when detached (shared/referenced images remain safe); planned garbage collection should require explicit review.
+
+React escapes all plain text. JSON-LD escapes '<'. CSP prevents embedding, objects and arbitrary remote scripts; Next.js inline hydration requires unsafe-inline in this initial build, so this is not a strict nonce CSP. Image sources are restricted to self/data. OpenStreetMap is the only iframe. External links use noopener. Add HSTS at the real HTTPS host; do not apply it to local HTTP.
+
+Password is compared through fixed-length SHA-256 digests with timingSafeEqual; the password secret itself remains server ENV, not persisted in GitHub. No password recovery endpoint. Rotate credentials through hosting secrets; rotate SESSION_SECRET to invalidate all current sessions. Configure Redis eviction/persistence appropriately, monitor errors and login rate limits.
+
+Concurrency: browser supplies observed SHA; GitHub PUT with SHA returns 409 on stale edits, no automatic overwriting. Local test mode serializes mutations and atomic renames. All data stored as a single validated envelope. Token scope should be the minimum repository permissions. Final independent source/runtime review hardened production Origin fail-closed checks, Redis response validation and malformed session handling. Mocked Redis TTL/read/revocation and outage tests are not live Redis verification. Production live GitHub/Redis integration remains required before commercial launch.

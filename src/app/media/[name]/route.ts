@@ -1,0 +1,2 @@
+import { readImage } from '@/lib/storage';
+export async function GET(_:Request,{params}:{params:Promise<{name:string}>}){try{const {name}=await params;const b=await readImage(name);return new Response(new Uint8Array(b),{headers:{'Content-Type':'image/webp','Cache-Control':'public, max-age=31536000, immutable','X-Content-Type-Options':'nosniff'}});}catch{return new Response('Not found',{status:404});}}

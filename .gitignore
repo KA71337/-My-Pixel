@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.env*
+!.env.example
+.vercel/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.local/
+owner-import/
+*.log
+*-output.txt
+worktree-check-output.txt

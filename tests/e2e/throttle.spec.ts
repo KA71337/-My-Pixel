@@ -1,0 +1,2 @@
+import { test,expect } from '@playwright/test';
+test('login throttling returns 429 after bounded attempts',async({request})=>{let throttled=false;for(let i=0;i<12;i++){const response=await request.post('/api/admin/login',{headers:{Origin:'http://127.0.0.1:3100'},data:{password:'wrong-test-only'}});if(response.status()===429){throttled=true;break;}expect(response.status()).toBe(401);}expect(throttled).toBe(true);});

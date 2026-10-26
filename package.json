@@ -1,0 +1,7 @@
+{
+  "name": "my-pixel", "version": "1.0.0", "private": true, "type": "module",
+  "scripts": {"dev":"next dev", "build":"next build", "start":"next start", "typecheck":"tsc --noEmit", "test":"tsx --test tests/*.test.ts", "test:e2e":"playwright test", "seed":"tsx scripts/seed.ts", "import":"tsx scripts/import.ts"},
+  "dependencies": {"next":"^16.0.0", "react":"^19.2.0", "react-dom":"^19.2.0", "server-only":"^0.0.1", "sharp":"^0.35.5", "zod":"^4.0.0"},
+  "devDependencies": {"typescript":"^5.9.0", "@types/node":"^24.0.0", "@types/react":"^19.2.0", "@types/react-dom":"^19.2.0", "tsx":"^4.20.0", "@playwright/test":"^1.56.0"},
+  "engines":{"node":">=20.9.0"}
+}
