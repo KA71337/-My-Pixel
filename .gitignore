@@ -12,3 +12,4 @@ owner-import/
 *.log
 *-output.txt
 worktree-check-output.txt
+.vercel

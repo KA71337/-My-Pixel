@@ -8,7 +8,7 @@
 - `src/components/header.tsx`, `site.tsx`, `gallery.tsx`, `src/app/globals.css`: responsive visual system, mobile menu, contacts, cards, native fullscreen dialog gallery.
 - `src/app/admin/layout.tsx`, `admin/login/page.tsx`, `admin/[[...section]]/page.tsx`, `src/components/admin.tsx`, `login.tsx`: server-protected admin + functional forms.
 - `src/app/api/admin/{login,logout,catalog,upload}/route.ts`: real authorization, session, CSRF, mutations and secure image endpoint.
-- `src/lib/schema.ts`, `api.ts`, `security-core.ts`, `auth.ts`, `uploads.ts`: validation, bounded bodies, sessions, atomic Redis throttling, safe normalization.
+- `src/lib/schema.ts`, `api.ts`, `security-core.ts`, `auth.ts`, `auth-store.ts`, `uploads.ts`: validation, bounded bodies, signed expiring sessions, bounded instance-local login throttling/replay denial, safe normalization.
 - `src/lib/storage.ts`, `storage-core.ts`: server-only facade, GitHub SHA optimistic concurrency, atomic local writes, immediate runtime image reads.
 - `src/app/media/[name]/route.ts`: immutable hashed WebP images from storage without deploy dependency.
 - `src/lib/public.ts`, `catalog-query.ts`, `src/app/robots.ts`, `sitemap.ts`, `icon.svg`: SEO/Schema metadata and search/sorting/pagination.

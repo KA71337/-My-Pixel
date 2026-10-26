@@ -1,6 +1,6 @@
 import { test,expect } from '@playwright/test';
 const origin='http://127.0.0.1:3100';
-test('all admin paths and APIs deny anonymous access; cookies persist and revoked cookie cannot replay',async({page,browser,request})=>{
+test('all admin paths and APIs deny anonymous access; signed cookies persist and local logout rejects replay in the test instance',async({page,browser,request})=>{
  for(const path of ['/admin','/admin/products','/admin/categories','/admin/services','/admin/settings','/admin/images','/admin/unknown/nested']){await page.goto(path);await expect(page).toHaveURL(/\/admin\/login$/);}
  expect((await request.get('/api/admin/catalog')).status()).toBe(401);
  for(const path of ['/api/admin/upload','/api/admin/logout'])expect((await request.post(path,{headers:{Origin:origin}})).status()).toBe(401);

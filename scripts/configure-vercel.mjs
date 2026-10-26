@@ -48,7 +48,7 @@ if (action === 'init-local') {
     }
     const values = { ...known, ...secrets };
     // Reuse only explicitly supplied runtime credentials, never Git CLI credentials.
-    for (const key of ['GITHUB_TOKEN', 'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN'])
+    for (const key of ['GITHUB_TOKEN'])
       if (process.env[key]) values[key] = process.env[key];
     const body = '# Private local configuration. Never commit or paste these secrets in chat.\n' +
       '# NEXT_PUBLIC_SITE_URL is the HTTPS origin verified against the repository-linked deployment.\n' +
@@ -92,7 +92,7 @@ if (action === 'init-local') {
       lines.push(`- Vercel check reference: ${u.origin}${u.pathname}`); } catch {}
   }
   lines.push('', 'No cloud variables were changed. A deployment reference alone does not verify project ownership/linkage.',
-    'Browser dashboard currently requires login; Vercel CLI and standard auth configuration were absent; no configured MCP server.',
+    'CLI auth/link status must be checked live with the existing Vercel CLI; historical dashboard access is not current CLI evidence.',
     'Do not create or link a guessed project. Confirm Vercel gitRepository owner/repo and production branch before any mutation.',
     'Private local credentials, if initialized, are in .env.local; no values are recorded in this report.');
   fs.writeFileSync('docs/vercel-access-audit.md', lines.join('\n') + '\n');

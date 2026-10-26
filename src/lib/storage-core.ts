@@ -7,8 +7,12 @@ export const digest=(b:string|Buffer)=>createHash('sha256').update(b).digest('he
 export function safeRepoPath(value:string){if(!/^[a-zA-Z0-9_./-]+$/.test(value)||value.split('/').some(p=>!p||p==='.'||p==='..'))throw new StorageError(503,'Invalid storage path');return value;}
 export function githubConfig(){const owner=process.env.GITHUB_OWNER||'KA71337',repo=process.env.GITHUB_REPO||'-My-Pixel';if(!/^[\w-]+$/.test(owner)||!/^[\w.-]+$/.test(repo))throw new StorageError(503,'Invalid repository');return {owner,repo,branch:process.env.GITHUB_BRANCH||'main',file:safeRepoPath(process.env.GITHUB_CATALOG_PATH||'data/catalog.json')};}
 export async function githubRequest(file:string,init:RequestInit={},fetcher:typeof fetch=fetch){
- const c=githubConfig();if(!process.env.GITHUB_TOKEN)throw new StorageError(503,'GitHub storage is not configured');
- const r=await fetcher(`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${safeRepoPath(file).split('/').map(encodeURIComponent).join('/')}?ref=${encodeURIComponent(c.branch)}`,{...init,cache:'no-store',signal:AbortSignal.timeout(15000),headers:{Authorization:`Bearer ${process.env.GITHUB_TOKEN}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json',...init.headers}});
+ const c=githubConfig(),credential=process.env.GITHUB_TOKEN;
+ // Public repository reads need no credential; all non-GET operations fail closed.
+ if((init.method||'GET').toUpperCase()!=='GET'&&!credential)throw new StorageError(503,'GitHub writes require a restricted repository token');
+ const headers=new Headers(init.headers);headers.set('Accept','application/vnd.github+json');headers.set('X-GitHub-Api-Version','2022-11-28');headers.set('Content-Type','application/json');
+ headers.delete('Authorization');if(credential)headers.set('Authorization',`Bearer ${credential}`);
+ const r=await fetcher(`https://api.github.com/repos/${c.owner}/${c.repo}/contents/${safeRepoPath(file).split('/').map(encodeURIComponent).join('/')}?ref=${encodeURIComponent(c.branch)}`,{...init,cache:'no-store',signal:AbortSignal.timeout(15000),headers});
  if(!r.ok)throw new StorageError(r.status===409||r.status===422?409:r.status===404?404:503,r.status===409||r.status===422?'Storage changed. Reload before saving.':'Storage request failed');return r.json();
 }
 const localDir=()=>path.resolve(/* turbopackIgnore: true */ process.env.LOCAL_DATA_DIR||'.local');
