@@ -10,7 +10,7 @@ Next.js 16 / TypeScript commercial storefront and server-authenticated AZ admin.
 4. `npm run dev` — public site at `/`, admin at `/admin/login`.
 5. `npm test`, `npm run typecheck`, `npm run build`, `npm run test:e2e`.
 
-Local mutations live in ignored `.local/`; seed is `data/catalog.json`. Test fixtures are isolated; the real catalog is intentionally empty until authorized owner data is supplied. Do not publish test products.
+Local mutations live in ignored `.local/`; seed is `data/catalog.json`. The seed now contains 35 verified owner shop listings and 162 local product photos captured from normal public pages on 2026-10-26. Prices/descriptions are source snapshots, not guarantees of stock. Test fixtures remain isolated; do not publish test products. An existing `.local/catalog.json` overrides the seed: back it up and reconcile explicitly rather than silently overwriting admin changes.
 
 ## Functionality
 
@@ -22,4 +22,4 @@ See [Deployment](docs/deployment.md), [Security](docs/security.md), [Import](doc
 
 ## Production status
 
-No existing Vercel target was identified by the completed audit. No project was created/linked/deployed; no unrelated project touched. User supplies GITHUB_TOKEN manually. Live GitHub writes and production deployment are not verified without configured credentials. Owner-supplied licensed product data/images still required.
+The repository-linked Vercel target is `kyamich/my-pixel`, site `https://my-pixel-one.vercel.app`. Vercel access requires login; cloud environment configuration is not completed or verified and cloud credentials are unavailable. No project was created/linked or cloud settings changed. Final main delivery is authorized; actual commit/push and Git-linked deployment results are reported separately. User must supply a repository-only application GITHUB_TOKEN and real Upstash REST credentials securely, preserving valid existing cloud admin/session secrets. Live application GitHub writes and production admin tests were not performed. The actual My Pixel shop logo (not Tap.az branding) is integrated with a transparent exterior background and matching favicon. Unknown stock, WhatsApp and socials remain unset. Local verification does not establish production readiness.

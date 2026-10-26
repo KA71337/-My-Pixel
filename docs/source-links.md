@@ -1,6 +1,6 @@
-# Tap.az — discovered links, not imported products
+# Tap.az — verified owner shop source snapshot
 
-35 public listing URLs were observed in the completed audit. 3 detail pages checked; 0 products imported; 0 photographs downloaded. This implementation did not copy listing content/images, logo or cover. Terms §9.5.2 / §9.6 require prior written consent for copying/special software. No such permission has been established. Current re-open of the shop landed on the terms page; no bypass attempted. These are discovery references, not verified live stock. Unconfirmed product fields are not populated in the catalog.
+On 2026-10-26 the normal public shop page and all 35 linked detail pages returned accessible content. The user authorized use of their own shop content. Imported 35 approved listings whose public embedded user reference matched shop user 7115429, preserving source IDs, canonical listing URLs, displayed prices, original descriptions and explicit properties. Downloaded and normalized all 162 listed product photos, with no errors. No access controls, CAPTCHA, 403/429 challenges or private APIs were bypassed. Public listing snapshots are not verified live inventory; availability remains blank. No model names, prices or warranty text were invented or corrected from assumptions.
 
 https://tap.az/elanlar/xidmetler/tehlukesizlik-sistemleri/48985208
 https://tap.az/elanlar/elektronika/telefonlar/47071075
@@ -40,4 +40,8 @@ https://tap.az/elanlar/elektronika/telefonlar/48503037
 
 Shop: https://tap.az/shops/my_pixel?user_id=7115429
 Terms: https://tap.az/pages/terms-and-conditions
-Confirmed shop details are carried forward from the user's completed audit. Confirm phones/hours/address before production. WhatsApp, socials and product records remain empty; specific repairs/prices/warranty commitments have not been invented. Text wordmark/favicon are neutral typographic fallbacks, not a reconstructed official logo.
+Shop address, phones, daily 11:00–20:00 hours and 2017 opening year were reconfirmed on the public shop page. WhatsApp, socials, cover and inventory status remain unset. Category/brand/model filters remain unset unless explicitly mapped by a later reviewed owner export; source specifications are preserved.
+
+Logo source (the shop's `shop-logo`, not the Tap.az platform mark): https://tap.azstatic.com/uploads/o350x350/2025%2F05%2F27%2F15%2F20%2F54%2F194ff6cc-e0fa-42fe-b344-6435e21ddc48%2F4513_SdFmiiX51JZHxZnCDO0xMg.jpg
+
+Original 350×350 JPEG shows the red pixel/P emblem and My PIXEL lettering. Sharp removed only near-white pixels connected to the exterior and trimmed margins; the enclosed white P and original design/colors were retained. Transparent lossless WebP: `public/brand/my-pixel-logo.webp`; favicon PNG: `public/brand/my-pixel-icon.png`; catalog logo: `/media/dd1372f455a02d3e31ad5b895cae06bb0150e509b1d1f3c72d1ff33226b93007.webp`. A higher-resolution owner original is optional for better quality, not required for this integration.
